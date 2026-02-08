@@ -2,10 +2,30 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Thank you | Digital Store Lab</title>
+  <title>Thank You | Digital Store Lab</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-  <h1>Thank you!</h1>
-  <p>This is a demo purchase.</p>
+<h1>Thank You!</h1>
+<p>Your demo purchase is complete.</p>
+<p>All files are available for download (demo).</p>
+
+<ul>
+  <li>Focus Planner PDF</li>
+  <li>Notion Workspace Template</li>
+  <li>Marketing Checklist PDF</li>
+</ul>
+
+<p><a href="shop.html">Back to Shop</a></p>
+
+<script>
+  // Можно здесь пушить дополнительное событие для GA4 (опционально)
+  window.dataLayer = window.dataLayer || [];
+  dataLayer.push({
+    event: 'page_view',
+    page_title: 'Thank You',
+    page_path: '/thankyou.html'
+  });
+</script>
 </body>
 </html>
