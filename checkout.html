@@ -3,12 +3,63 @@
 <head>
   <meta charset="UTF-8">
   <title>Checkout | Digital Store Lab</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-  <h1>Checkout</h1>
-  <form>
-    <input type="email" placeholder="Email" required />
-    <button type="submit">Place order</button>
-  </form>
+<h1>Checkout</h1>
+<p>Fill in your email to complete the demo purchase (no real payment).</p>
+
+<form id="checkout-form">
+  <input type="email" placeholder="Your email" required>
+  <button type="submit">Place Order</button>
+</form>
+
+<script>
+const products = {
+  "focus-planner": {name: "Focus Planner PDF", price: 9},
+  "notion-template": {name: "Notion Workspace Template", price: 19},
+  "marketing-checklist": {name: "Marketing Checklist PDF", price: 12},
+  "pro-bundle": {name: "Pro Bundle", price: 29}
+};
+
+document.getElementById('checkout-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  if(cart.length === 0){
+    alert('Cart is empty!');
+    return;
+  }
+
+  // Подготовка событий purchase
+  const items = cart.map(id => ({
+    item_id: id,
+    item_name: products[id].name,
+    price: products[id].price,
+    quantity: 1
+  }));
+
+  const total = items.reduce((sum, i) => sum + i.price, 0);
+
+  // GTM ecommerce event - purchase
+  window.dataLayer = window.dataLayer || [];
+  dataLayer.push({
+    event: 'purchase',
+    ecommerce: {
+      currency: 'USD',
+      value: total,
+      items: items
+    }
+  });
+
+  // Очищаем корзину (демо)
+  localStorage.removeItem('cart');
+
+  // Перенаправление на thankyou
+  window.location.href = 'thankyou.html';
+});
+</script>
+
+<p><a href="shop.html">Back to Shop</a></p>
 </body>
 </html>
