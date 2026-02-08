@@ -3,9 +3,73 @@
 <head>
   <meta charset="UTF-8">
   <title>Shop | Digital Store Lab</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    .product { border: 1px solid #ccc; padding: 15px; margin: 10px 0; }
+    button { padding: 5px 10px; cursor: pointer; }
+  </style>
 </head>
 <body>
-  <h1>Shop</h1>
-  <p>Product catalog (demo)</p>
+
+<h1>Digital Store Lab - Shop</h1>
+<p>Demo project for learning. No real payments.</p>
+
+<div class="product" data-id="focus-planner" data-name="Focus Planner PDF" data-price="9">
+  <h2>Focus Planner PDF - $9</h2>
+  <p>Daily & weekly planner to boost focus.</p>
+  <button onclick="addToCart('focus-planner')">Add to Cart</button>
+</div>
+
+<div class="product" data-id="notion-template" data-name="Notion Workspace Template" data-price="19">
+  <h2>Notion Workspace Template - $19</h2>
+  <p>Ready-to-use productivity setup in Notion.</p>
+  <button onclick="addToCart('notion-template')">Add to Cart</button>
+</div>
+
+<div class="product" data-id="marketing-checklist" data-name="Marketing Checklist PDF" data-price="12">
+  <h2>Marketing Checklist PDF - $12</h2>
+  <p>Step-by-step checklist for campaigns.</p>
+  <button onclick="addToCart('marketing-checklist')">Add to Cart</button>
+</div>
+
+<div class="product" data-id="pro-bundle" data-name="Pro Bundle" data-price="29">
+  <h2>Pro Bundle - $29</h2>
+  <p>All 3 templates together.</p>
+  <button onclick="addToCart('pro-bundle')">Add to Cart</button>
+</div>
+
+<script>
+const products = {
+  "focus-planner": {name: "Focus Planner PDF", price: 9},
+  "notion-template": {name: "Notion Workspace Template", price: 19},
+  "marketing-checklist": {name: "Marketing Checklist PDF", price: 12},
+  "pro-bundle": {name: "Pro Bundle", price: 29}
+};
+
+function addToCart(id) {
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  cart.push(id);
+  localStorage.setItem('cart', JSON.stringify(cart));
+  alert(products[id].name + ' added to cart!');
+  // GTM ecommerce event
+  window.dataLayer = window.dataLayer || [];
+  dataLayer.push({
+    event: 'add_to_cart',
+    ecommerce: {
+      currency: 'USD',
+      value: products[id].price,
+      items: [{
+        item_id: id,
+        item_name: products[id].name,
+        price: products[id].price,
+        quantity: 1
+      }]
+    }
+  });
+}
+</script>
+
+<p><a href="cart.html">Go to Cart</a></p>
 </body>
 </html>
