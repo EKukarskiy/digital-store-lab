@@ -3,8 +3,65 @@
 <head>
   <meta charset="UTF-8">
   <title>Cart | Digital Store Lab</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-  <h1>Cart</h1>
+<h1>Your Cart</h1>
+
+<ul id="cart-list"></ul>
+
+<p>Total: $<span id="total">0</span></p>
+
+<button onclick="checkout()">Proceed to Checkout</button>
+
+<script>
+const products = {
+  "focus-planner": {name: "Focus Planner PDF", price: 9},
+  "notion-template": {name: "Notion Workspace Template", price: 19},
+  "marketing-checklist": {name: "Marketing Checklist PDF", price: 12},
+  "pro-bundle": {name: "Pro Bundle", price: 29}
+};
+
+function renderCart() {
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const list = document.getElementById('cart-list');
+  list.innerHTML = '';
+  let total = 0;
+  cart.forEach((id, index) => {
+    const li = document.createElement('li');
+    li.textContent = products[id].name + ' - $' + products[id].price;
+    list.appendChild(li);
+    total += products[id].price;
+  });
+  document.getElementById('total').textContent = total;
+}
+
+function checkout() {
+  // GTM ecommerce checkout event
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const items = cart.map(id => ({
+    item_id: id,
+    item_name: products[id].name,
+    price: products[id].price,
+    quantity: 1
+  }));
+  const total = items.reduce((sum, i) => sum + i.price, 0);
+  window.dataLayer = window.dataLayer || [];
+  dataLayer.push({
+    event: 'begin_checkout',
+    ecommerce: {
+      currency: 'USD',
+      value: total,
+      items: items
+    }
+  });
+  window.location.href = 'checkout.html';
+}
+
+renderCart();
+</script>
+
+<p><a href="shop.html">Back to Shop</a></p>
 </body>
 </html>
+
