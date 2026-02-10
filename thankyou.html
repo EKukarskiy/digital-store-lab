@@ -37,20 +37,36 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <p><a href="shop.html">Back to Shop</a></p>
 
-<script>
-  // Можно здесь пушить дополнительное событие для GA4 (опционально)
+<!-- <script> -->
+  <!-- // Можно здесь пушить дополнительное событие для GA4 (опционально)
   window.dataLayer = window.dataLayer || [];
-  dataLayer.push({
-    event: 'page_view',
-    page_title: 'Thank You',
-    page_path: '/thankyou.html'
-  });
-</script>
+  // dataLayer.push({
+  //   event: 'page_view',
+  //   page_title: 'Thank You',
+  //   page_path: '/thankyou.html'
+  // }); -->
+<!-- </script> -->
 
   <hr>
 <footer style="margin-top: 30px; font-size: 0.9em; color: #555;">
   Demo project — non-commercial | <a href="index.html">Home</a>
 </footer>
+
+  <script>
+  window.dataLayer = window.dataLayer || [];
+
+  const orderData = JSON.parse(sessionStorage.getItem('orderData'));
+
+  if (orderData) {
+    dataLayer.push({
+      event: 'purchase',
+      ecommerce: orderData
+    });
+
+    // очищаем, чтобы не было дублей
+    sessionStorage.removeItem('orderData');
+  }
+</script>
 
 </body>
 </html>
