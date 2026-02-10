@@ -6,20 +6,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-52V8NGGJ');</script>
-<!-- End Google Tag Manager -->
-  
+  <script>
+    (function(w,d,s,l,i){
+      w[l]=w[l]||[];
+      w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});
+      var f=d.getElementsByTagName(s)[0],
+          j=d.createElement(s),
+          dl=l!='dataLayer'?'&l='+l:'';
+      j.async=true;
+      j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+      f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-52V8NGGJ');
+  </script>
 </head>
+
 <body>
   <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-52V8NGGJ"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-  
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-52V8NGGJ"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+
 <h1>Your Cart</h1>
 
 <ul id="cart-list"></ul>
@@ -29,23 +36,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <script>
 const products = {
-  "focus-planner": {name: "Focus Planner PDF", price: 9},
-  "notion-template": {name: "Notion Workspace Template", price: 19},
-  "marketing-checklist": {name: "Marketing Checklist PDF", price: 12},
-  "pro-bundle": {name: "Pro Bundle", price: 29}
+  "focus-planner": { name: "Focus Planner PDF", price: 9 },
+  "notion-template": { name: "Notion Workspace Template", price: 19 },
+  "marketing-checklist": { name: "Marketing Checklist PDF", price: 12 },
+  "pro-bundle": { name: "Pro Bundle", price: 29 }
 };
 
 // --------------------
-// Render Cart Items
+// Render cart + push view_cart
 // --------------------
 function renderCart() {
-  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
   const list = document.getElementById('cart-list');
   list.innerHTML = '';
 
   let total = 0;
 
-  cart.forEach((id) => {
+  cart.forEach(id => {
     const li = document.createElement('li');
     li.textContent = products[id].name + ' - $' + products[id].price;
     list.appendChild(li);
@@ -54,41 +61,35 @@ function renderCart() {
 
   document.getElementById('total').textContent = total;
 
-  // --------------------
-  // PUSH view_cart ON FIRST LOAD
-  // --------------------
-  if (cart.length > 0 && !sessionStorage.getItem('view_cart_fired')) {
-    const items = cart.map(id => ({
-      item_id: id,
-      item_name: products[id].name,
-      price: products[id].price,
-      quantity: 1
-    }));
+  if (cart.length === 0) return;
 
-    window.dataLayer = window.dataLayer || [];
-    dataLayer.push({
-      event: 'view_cart',
-      ecommerce: {
-        currency: 'USD',
-        value: total,
-        items: items
-      }
-    });
+  const items = cart.map(id => ({
+    item_id: id,
+    item_name: products[id].name,
+    price: products[id].price,
+    quantity: 1
+  }));
 
-    sessionStorage.setItem('view_cart_fired', 'true');
-  }
+  window.dataLayer = window.dataLayer || [];
+  dataLayer.push({
+    event: 'view_cart',
+    ecommerce: {
+      currency: 'USD',
+      value: total,
+      items: items
+    }
+  });
 }
 
 // --------------------
 // Checkout button
 // --------------------
 function checkout() {
-  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
   if (cart.length === 0) {
     alert('Cart is empty!');
     return;
   }
-
   window.location.href = 'checkout.html';
 }
 
