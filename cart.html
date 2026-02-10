@@ -62,15 +62,17 @@ function renderCart() {
       quantity: 1
     }));
     window.dataLayer = window.dataLayer || [];
-    dataLayer.push({
-      event: 'view_cart',
-      ecommerce: {
-        currency: 'USD',
-        value: total,
-        items: items
-      }
-    });
-  }
+if (!sessionStorage.getItem('view_cart_fired')) {
+  dataLayer.push({
+    event: 'view_cart',
+    ecommerce: {
+      currency: 'USD',
+      value: total,
+      items: items
+    }
+  });
+  sessionStorage.setItem('view_cart_fired', 'true');
+}
 }
 
 // --------------------
