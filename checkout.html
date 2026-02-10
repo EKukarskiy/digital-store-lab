@@ -56,10 +56,10 @@ document.getElementById('checkout-form').addEventListener('submit', function(e) 
 
   const total = items.reduce((sum, i) => sum + i.price, 0);
 
-  // GTM ecommerce event - purchase
+  // GTM ecommerce event - begin_checkout
   window.dataLayer = window.dataLayer || [];
   dataLayer.push({
-    event: 'purchase',
+    event: 'begin_checkout',
     ecommerce: {
       currency: 'USD',
       value: total,
