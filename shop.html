@@ -11,94 +11,103 @@
   </style>
 
   <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-52V8NGGJ');</script>
-<!-- End Google Tag Manager -->
-  
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-52V8NGGJ');</script>
+  <!-- End Google Tag Manager -->
 </head>
 <body>
 
   <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-52V8NGGJ"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-  
-<nav>
-  <a href="index.html">Home</a> |
-  <a href="blog/post1.html">Blog</a>
-</nav>
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-52V8NGGJ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+  <!-- End Google Tag Manager (noscript) -->
 
-<h1>Digital Store Lab - Shop</h1>
-<p>Demo project for learning. No real payments.</p>
+  <!-- Navigation -->
+  <nav>
+    <a href="index.html">Home</a> |
+    <a href="blog/post1.html">Blog</a>
+  </nav>
 
-<div class="product" data-id="focus-planner" data-name="Focus Planner PDF" data-price="9">
-  <h2>Focus Planner PDF - $9</h2>
-  <p>Daily & weekly planner to boost focus.</p>
-  <button onclick="addToCart('focus-planner')">Add to Cart</button>
-</div>
+  <h1>Digital Store Lab - Shop</h1>
+  <p>Demo project for learning. No real payments.</p>
 
-<div class="product" data-id="notion-template" data-name="Notion Workspace Template" data-price="19">
-  <h2>Notion Workspace Template - $19</h2>
-  <p>Ready-to-use productivity setup in Notion.</p>
-  <button onclick="addToCart('notion-template')">Add to Cart</button>
-</div>
+  <!-- Products -->
+  <div class="product" data-id="focus-planner" data-name="Focus Planner PDF" data-price="9">
+    <h2>Focus Planner PDF - $9</h2>
+    <p>Daily & weekly planner to boost focus.</p>
+    <button onclick="addToCart('focus-planner')">Add to Cart</button>
+  </div>
 
-<div class="product" data-id="marketing-checklist" data-name="Marketing Checklist PDF" data-price="12">
-  <h2>Marketing Checklist PDF - $12</h2>
-  <p>Step-by-step checklist for campaigns.</p>
-  <button onclick="addToCart('marketing-checklist')">Add to Cart</button>
-</div>
+  <div class="product" data-id="notion-template" data-name="Notion Workspace Template" data-price="19">
+    <h2>Notion Workspace Template - $19</h2>
+    <p>Ready-to-use productivity setup in Notion.</p>
+    <button onclick="addToCart('notion-template')">Add to Cart</button>
+  </div>
 
-<div class="product" data-id="pro-bundle" data-name="Pro Bundle" data-price="29">
-  <h2>Pro Bundle - $29</h2>
-  <p>All 3 templates together.</p>
-  <button onclick="addToCart('pro-bundle')">Add to Cart</button>
-</div>
+  <div class="product" data-id="marketing-checklist" data-name="Marketing Checklist PDF" data-price="12">
+    <h2>Marketing Checklist PDF - $12</h2>
+    <p>Step-by-step checklist for campaigns.</p>
+    <button onclick="addToCart('marketing-checklist')">Add to Cart</button>
+  </div>
 
-<script>
-const products = {
-  "focus-planner": {name: "Focus Planner PDF", price: 9},
-  "notion-template": {name: "Notion Workspace Template", price: 19},
-  "marketing-checklist": {name: "Marketing Checklist PDF", price: 12},
-  "pro-bundle": {name: "Pro Bundle", price: 29}
-};
+  <div class="product" data-id="pro-bundle" data-name="Pro Bundle" data-price="29">
+    <h2>Pro Bundle - $29</h2>
+    <p>All 3 templates together.</p>
+    <button onclick="addToCart('pro-bundle')">Add to Cart</button>
+  </div>
 
-function addToCart(id) {
-  let cart = JSON.parse(localStorage.getItem('cart')) || [];
-  cart.push(id);
-  localStorage.setItem('cart', JSON.stringify(cart));
-  alert(products[id].name + ' added to cart!');
+  <script>
+  const products = {
+    "focus-planner": {name: "Focus Planner PDF", price: 9},
+    "notion-template": {name: "Notion Workspace Template", price: 19},
+    "marketing-checklist": {name: "Marketing Checklist PDF", price: 12},
+    "pro-bundle": {name: "Pro Bundle", price: 29}
+  };
 
-  // GTM ecommerce event - add_to_cart
-  window.dataLayer = window.dataLayer || [];
-  dataLayer.push({
-    event: 'add_to_cart',
-    ecommerce: {
-      currency: 'USD',
-      value: products[id].price,
-      items: [{
-        item_id: id,
-        item_name: products[id].name,
-        price: products[id].price,
-        quantity: 1
-      }]
-    }
-  });
-}
-</script>
+  // --------------------
+  // ADD PRODUCT TO CART
+  // --------------------
+  function addToCart(id) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart.push(id);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    alert(products[id].name + ' added to cart!');
 
-<p>
-  <!-- Ссылка на корзину без view_cart пуша -->
-  <a href="cart.html">Go to Cart</a>
-</p>
+    // --------------------
+    // PUSH add_to_cart EVENT TO dataLayer
+    // --------------------
+    window.dataLayer = window.dataLayer || [];
+    dataLayer.push({
+      event: 'add_to_cart',
+      ecommerce: {
+        currency: 'USD',
+        value: Number(products[id].price), // ensure price is numeric
+        items: [{
+          item_id: id,
+          item_name: products[id].name,
+          price: Number(products[id].price), // ensure GA4 sees correct price
+          quantity: 1
+        }]
+      }
+    });
+  }
+  </script>
 
-<hr>
-<footer style="margin-top: 30px; font-size: 0.9em; color: #555;">
-  Demo project — non-commercial | <a href="index.html">Home</a>
-</footer>
+  <p>
+    <!-- Link to cart page -->
+    <a href="cart.html">Go to Cart</a>
+  </p>
+
+  <hr>
+  <footer style="margin-top: 30px; font-size: 0.9em; color: #555;">
+    Demo project — non-commercial | <a href="index.html">Home</a>
+  </footer>
 
 </body>
 </html>
+
