@@ -90,7 +90,45 @@ function addToCart(id) {
 }
 </script>
 
-<p><a href="cart.html">Go to Cart</a></p>
+<p>
+  <a href="cart.html" onclick="trackViewCart(event)">Go to Cart</a>
+</p>
+
+  <script>
+function trackViewCart(e) {
+  e.preventDefault(); // чтобы не уходить сразу
+
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  if(cart.length === 0){
+    alert('Cart is empty!');
+    window.location.href = 'cart.html';
+    return;
+  }
+
+  const items = cart.map(id => ({
+    item_id: id,
+    item_name: products[id].name,
+    price: products[id].price,
+    quantity: 1
+  }));
+
+  const total = items.reduce((sum, i) => sum + i.price, 0);
+
+  window.dataLayer = window.dataLayer || [];
+  dataLayer.push({
+    event: 'view_cart',
+    ecommerce: {
+      currency: 'USD',
+      value: total,
+      items: items
+    },
+    eventCallback: function(){
+      window.location.href = 'cart.html'; // переходим после пуша
+    },
+    eventTimeout: 2000
+  });
+}
+</script>
 
   <hr>
 <footer style="margin-top: 30px; font-size: 0.9em; color: #555;">
