@@ -67,6 +67,16 @@ document.getElementById('checkout-form').addEventListener('submit', function(e) 
     }
   });
 
+  // Сохраняем заказ для Thank You
+const orderData = {
+  transaction_id: 'T_' + Date.now(),
+  currency: 'USD',
+  value: total,
+  items: items
+};
+
+sessionStorage.setItem('orderData', JSON.stringify(orderData));
+
   // Очищаем корзину (демо)
   localStorage.removeItem('cart');
 
