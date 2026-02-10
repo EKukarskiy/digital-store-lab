@@ -60,15 +60,15 @@ function checkout() {
     quantity: 1
   }));
   const total = items.reduce((sum, i) => sum + i.price, 0);
-  window.dataLayer = window.dataLayer || [];
-  dataLayer.push({
-    event: 'begin_checkout',
-    ecommerce: {
-      currency: 'USD',
-      value: total,
-      items: items
-    }
-  });
+  // window.dataLayer = window.dataLayer || [];
+  // dataLayer.push({
+  //   event: 'begin_checkout',
+  //   ecommerce: {
+  //     currency: 'USD',
+  //     value: total,
+  //     items: items
+  //   }
+  // });
   window.location.href = 'checkout.html';
 }
 
