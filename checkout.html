@@ -37,27 +37,21 @@ const products = {
   "pro-bundle": {name: "Pro Bundle", price: 29}
 };
 
-document.getElementById('checkout-form').addEventListener('submit', function(e) {
-  e.preventDefault();
+// --------------------
+// PUSH BEGIN_CHECKOUT
+// --------------------
+window.dataLayer = window.dataLayer || [];
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-  let cart = JSON.parse(localStorage.getItem('cart')) || [];
-  if(cart.length === 0){
-    alert('Cart is empty!');
-    return;
-  }
-
-  // Подготовка событий purchase
+if(cart.length > 0){
   const items = cart.map(id => ({
     item_id: id,
     item_name: products[id].name,
     price: products[id].price,
     quantity: 1
   }));
-
   const total = items.reduce((sum, i) => sum + i.price, 0);
 
-  // GTM ecommerce event - begin_checkout
-  window.dataLayer = window.dataLayer || [];
   dataLayer.push({
     event: 'begin_checkout',
     ecommerce: {
@@ -66,28 +60,58 @@ document.getElementById('checkout-form').addEventListener('submit', function(e) 
       items: items
     }
   });
+}
+
+// --------------------
+// HANDLE PURCHASE ON SUBMIT
+// --------------------
+document.getElementById('checkout-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  if(cart.length === 0){
+    alert('Cart is empty!');
+    return;
+  }
+
+  const items = cart.map(id => ({
+    item_id: id,
+    item_name: products[id].name,
+    price: products[id].price,
+    quantity: 1
+  }));
+  const total = items.reduce((sum, i) => sum + i.price, 0);
+
+  // PUSH PURCHASE
+  dataLayer.push({
+    event: 'purchase',
+    ecommerce: {
+      transaction_id: 'T_' + Date.now(),
+      currency: 'USD',
+      value: total,
+      items: items
+    }
+  });
 
   // Сохраняем заказ для Thank You
-const orderData = {
-  transaction_id: 'T_' + Date.now(),
-  currency: 'USD',
-  value: total,
-  items: items
-};
-
-sessionStorage.setItem('orderData', JSON.stringify(orderData));
+  const orderData = {
+    transaction_id: 'T_' + Date.now(),
+    currency: 'USD',
+    value: total,
+    items: items
+  };
+  sessionStorage.setItem('orderData', JSON.stringify(orderData));
 
   // Очищаем корзину (демо)
   localStorage.removeItem('cart');
 
-  // Перенаправление на thankyou
+  // Перенаправление на Thank You
   window.location.href = 'thankyou.html';
 });
 </script>
 
 <p><a href="shop.html">Back to Shop</a></p>
 
-  <hr>
+<hr>
 <footer style="margin-top: 30px; font-size: 0.9em; color: #555;">
   Demo project — non-commercial | <a href="index.html">Home</a>
 </footer>
