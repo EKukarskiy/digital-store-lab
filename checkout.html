@@ -12,15 +12,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-52V8NGGJ');</script>
 <!-- End Google Tag Manager -->
-  
+
 </head>
 <body>
-  
+
   <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-52V8NGGJ"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
-  
+
 <h1>Checkout</h1>
 <p>Fill in your email to complete the demo purchase (no real payment).</p>
 
@@ -38,7 +38,7 @@ const products = {
 };
 
 // --------------------
-// PUSH BEGIN_CHECKOUT
+// PUSH BEGIN_CHECKOUT ON PAGE LOAD
 // --------------------
 window.dataLayer = window.dataLayer || [];
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -63,7 +63,7 @@ if(cart.length > 0){
 }
 
 // --------------------
-// HANDLE PURCHASE ON SUBMIT
+// HANDLE FORM SUBMIT
 // --------------------
 document.getElementById('checkout-form').addEventListener('submit', function(e) {
   e.preventDefault();
@@ -73,6 +73,7 @@ document.getElementById('checkout-form').addEventListener('submit', function(e) 
     return;
   }
 
+  // Save order data for Thank You page
   const items = cart.map(id => ({
     item_id: id,
     item_name: products[id].name,
@@ -81,18 +82,6 @@ document.getElementById('checkout-form').addEventListener('submit', function(e) 
   }));
   const total = items.reduce((sum, i) => sum + i.price, 0);
 
-  // PUSH PURCHASE
-  dataLayer.push({
-    event: 'purchase',
-    ecommerce: {
-      transaction_id: 'T_' + Date.now(),
-      currency: 'USD',
-      value: total,
-      items: items
-    }
-  });
-
-  // Сохраняем заказ для Thank You
   const orderData = {
     transaction_id: 'T_' + Date.now(),
     currency: 'USD',
@@ -101,10 +90,10 @@ document.getElementById('checkout-form').addEventListener('submit', function(e) 
   };
   sessionStorage.setItem('orderData', JSON.stringify(orderData));
 
-  // Очищаем корзину (демо)
+  // Clear cart (demo)
   localStorage.removeItem('cart');
 
-  // Перенаправление на Thank You
+  // Redirect to Thank You page
   window.location.href = 'thankyou.html';
 });
 </script>
