@@ -23,7 +23,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <h1>Your Cart</h1>
 
 <ul id="cart-list"></ul>
-
 <p>Total: $<span id="total">0</span></p>
 
 <button onclick="checkout()">Proceed to Checkout</button>
@@ -36,39 +35,54 @@ const products = {
   "pro-bundle": {name: "Pro Bundle", price: 29}
 };
 
+// --------------------
+// Render Cart Items
+// --------------------
 function renderCart() {
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
   const list = document.getElementById('cart-list');
   list.innerHTML = '';
   let total = 0;
-  cart.forEach((id, index) => {
+  cart.forEach((id) => {
     const li = document.createElement('li');
     li.textContent = products[id].name + ' - $' + products[id].price;
     list.appendChild(li);
     total += products[id].price;
   });
   document.getElementById('total').textContent = total;
+
+  // --------------------
+  // PUSH view_cart ON LOAD
+  // --------------------
+  if(cart.length > 0){
+    const items = cart.map(id => ({
+      item_id: id,
+      item_name: products[id].name,
+      price: products[id].price,
+      quantity: 1
+    }));
+    window.dataLayer = window.dataLayer || [];
+    dataLayer.push({
+      event: 'view_cart',
+      ecommerce: {
+        currency: 'USD',
+        value: total,
+        items: items
+      }
+    });
+  }
 }
 
+// --------------------
+// Checkout button
+// --------------------
 function checkout() {
-  // GTM ecommerce checkout event
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
-  const items = cart.map(id => ({
-    item_id: id,
-    item_name: products[id].name,
-    price: products[id].price,
-    quantity: 1
-  }));
-  const total = items.reduce((sum, i) => sum + i.price, 0);
-  // window.dataLayer = window.dataLayer || [];
-  // dataLayer.push({
-  //   event: 'begin_checkout',
-  //   ecommerce: {
-  //     currency: 'USD',
-  //     value: total,
-  //     items: items
-  //   }
-  // });
+  if(cart.length === 0){
+    alert('Cart is empty!');
+    return;
+  }
+
   window.location.href = 'checkout.html';
 }
 
@@ -77,11 +91,10 @@ renderCart();
 
 <p><a href="shop.html">Back to Shop</a></p>
 
-  <hr>
+<hr>
 <footer style="margin-top: 30px; font-size: 0.9em; color: #555;">
   Demo project — non-commercial | <a href="index.html">Home</a>
 </footer>
 
 </body>
 </html>
-
