@@ -52,7 +52,8 @@ if(cart.length > 0){
   }));
   const total = items.reduce((sum, i) => sum + i.price, 0);
 
-  dataLayer.push({
+  if (!sessionStorage.getItem('begin_checkout_fired') && cart.length > 0) {
+    dataLayer.push({
     event: 'begin_checkout',
     ecommerce: {
       currency: 'USD',
@@ -60,6 +61,7 @@ if(cart.length > 0){
       items: items
     }
   });
+  sessionStorage.setItem('begin_checkout_fired', 'true');
 }
 
 // --------------------
