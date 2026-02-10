@@ -82,15 +82,18 @@ document.getElementById('checkout-form').addEventListener('submit', function(e) 
     price: products[id].price,
     quantity: 1
   }));
+
   const total = items.reduce((sum, i) => sum + i.price, 0);
 
-  const orderData = {
-    transaction_id: 'T_' + Date.now(),
+window.dataLayer = window.dataLayer || [];
+dataLayer.push({
+  event: 'begin_checkout',
+  ecommerce: {
     currency: 'USD',
     value: total,
     items: items
-  };
-  sessionStorage.setItem('orderData', JSON.stringify(orderData));
+  }
+});
 
   // Clear cart (demo)
   localStorage.removeItem('cart');
