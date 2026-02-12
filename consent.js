@@ -49,7 +49,7 @@ window.addEventListener('DOMContentLoaded', () => {
         banner.innerHTML = `
             <div style="position: fixed; bottom: 0; left: 0; right: 0; background: #1a1a1a; color: #fff; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; z-index: 10000; font-family: -apple-system, sans-serif; font-size: 14px; box-shadow: 0 -2px 10px rgba(0,0,0,0.3);">
                 <div style="margin-right: 20px;">
-                    We use cookies to analyze traffic and optimize your experience.
+                    We use cookies to analyze traffic and optimize your experience on this learning website.
                 </div>
                 <div style="display: flex; gap: 10px;">
                     <button onclick="updateConsent(true)" style="background: #4CAF50; color: white; border: none; padding: 8px 16px; cursor: pointer; border-radius: 4px; font-weight: bold;">Accept All</button>
