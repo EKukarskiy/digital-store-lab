@@ -5,53 +5,10 @@
   <title>Digital Store Lab</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Consent banner -->
-  <script>
-// Вставляем логику прямо сюда
-window.dataLayer = window.dataLayer || [];
-function gtag() { dataLayer.push(arguments); }
+<!-- Consent banner -->
+<script src="consent.js"></script>
 
-if (!localStorage.getItem('consentMode')) {
-    gtag('consent', 'default', {
-        'ad_storage': 'denied',
-        'analytics_storage': 'denied',
-        'personalization_storage': 'denied'
-    });
-} else {
-    gtag('consent', 'default', JSON.parse(localStorage.getItem('consentMode')));
-}
-
-function updateConsent(isAccepted) {
-    const status = isAccepted ? 'granted' : 'denied';
-    const consentStatus = {
-        'ad_storage': status,
-        'analytics_storage': status,
-        'personalization_storage': status
-    };
-    gtag('consent', 'update', consentStatus);
-    localStorage.setItem('consentMode', JSON.stringify(consentStatus));
-    document.getElementById('consent-banner').style.removeProperty('display');
-    document.getElementById('consent-banner').style.display = 'none';
-}
-
-window.addEventListener('DOMContentLoaded', () => {
-    if (!localStorage.getItem('consentMode')) {
-        const banner = document.createElement('div');
-        banner.id = 'consent-banner';
-        banner.innerHTML = `
-            <div style="position: fixed; bottom: 20px; left: 20px; right: 20px; background: #fff; border: 2px solid #000; padding: 20px; display: flex; justify-content: space-between; align-items: center; z-index: 9999;">
-                <span style="color:#000; font-family:sans-serif;">Allow tracking for demo?</span>
-                <div>
-                    <button onclick="updateConsent(true)" style="background:#000; color:#fff; padding:10px; border:none; cursor:pointer;">Accept</button>
-                    <button onclick="updateConsent(false)" style="background:#ccc; color:#000; padding:10px; border:none; cursor:pointer; margin-left:5px;">Reject</button>
-                </div>
-            </div>`;
-        document.body.appendChild(banner);
-    }
-});
-</script>
-
-  <!-- Google Tag Manager -->
+<!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
