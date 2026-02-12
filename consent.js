@@ -1,48 +1,61 @@
-// 1. Устанавливаем состояние по умолчанию (Default)
+
+// 1. Инициализация очереди
 window.dataLayer = window.dataLayer || [];
 function gtag() { dataLayer.push(arguments); }
 
+// 2. Установка Default состояния
 if (!localStorage.getItem('consentMode')) {
     gtag('consent', 'default', {
         'ad_storage': 'denied',
         'analytics_storage': 'denied',
         'personalization_storage': 'denied',
-        'wait_for_update': 500
+        'wait_for_update': 500 // Ждем 500мс для синхронизации
     });
 } else {
-    const savedConsent = JSON.parse(localStorage.getItem('consentMode'));
-    gtag('consent', 'default', savedConsent);
+    // Если выбор уже сделан, берем из памяти
+    gtag('consent', 'default', JSON.parse(localStorage.getItem('consentMode')));
 }
 
-// 2. Функция для обновления согласия
+// 3. Функция обработки клика
 function updateConsent(isAccepted) {
+    const status = isAccepted ? 'granted' : 'denied';
     const consentStatus = {
-        'ad_storage': isAccepted ? 'granted' : 'denied',
-        'analytics_storage': isAccepted ? 'granted' : 'denied',
-        'personalization_storage': isAccepted ? 'granted' : 'denied'
+        'ad_storage': status,
+        'analytics_storage': status,
+        'personalization_storage': status
     };
     
+    // Обновляем Consent Mode
     gtag('consent', 'update', consentStatus);
+    
+    // Сохраняем выбор
     localStorage.setItem('consentMode', JSON.stringify(consentStatus));
+    
+    // Пушим событие в DataLayer для GTM триггеров
+    window.dataLayer.push({
+        'event': 'consent_updated',
+        'consent_status': status
+    });
     
     // Скрываем баннер
     document.getElementById('consent-banner').style.display = 'none';
 }
 
-// 3. Отрисовка баннера (простой HTML внутри JS для удобства)
+// 4. Отрисовка баннера
 window.addEventListener('DOMContentLoaded', () => {
     if (!localStorage.getItem('consentMode')) {
         const banner = document.createElement('div');
         banner.id = 'consent-banner';
         banner.innerHTML = `
-            <div style="position: fixed; bottom: 20px; left: 20px; right: 20px; background: #fff; border: 1px solid #ccc; padding: 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); z-index: 9999;">
-                <p style="margin: 0; font-family: sans-serif;">We use cookies to improve your experience.</p>
-                <div>
-                    <button onclick="updateConsent(true)" style="padding: 8px 16px; background: #000; color: #fff; border: none; cursor: pointer; margin-right: 10px;">Accept</button>
-                    <button onclick="updateConsent(false)" style="padding: 8px 16px; background: #eee; border: none; cursor: pointer;">Reject</button>
+            <div style="position: fixed; bottom: 0; left: 0; right: 0; background: #1a1a1a; color: #fff; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; z-index: 10000; font-family: -apple-system, sans-serif; font-size: 14px; box-shadow: 0 -2px 10px rgba(0,0,0,0.3);">
+                <div style="margin-right: 20px;">
+                    We use cookies to analyze traffic and optimize your experience.
                 </div>
-            </div>
-        `;
+                <div style="display: flex; gap: 10px;">
+                    <button onclick="updateConsent(true)" style="background: #4CAF50; color: white; border: none; padding: 8px 16px; cursor: pointer; border-radius: 4px; font-weight: bold;">Accept All</button>
+                    <button onclick="updateConsent(false)" style="background: transparent; color: #ccc; border: 1px solid #444; padding: 8px 16px; cursor: pointer; border-radius: 4px;">Reject</button>
+                </div>
+            </div>`;
         document.body.appendChild(banner);
     }
 });
