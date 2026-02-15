@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Cart | Digital Store Lab</title>
@@ -7,96 +8,100 @@
 
   <!-- Consent banner -->
   <script src="consent.js"></script>
-  
-<!-- Google Tag Manager (1st party) -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://load.ss.digital-store-lab.space/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-52V8NGGJ');</script>
-<!-- End Google Tag Manager -->
+
+  <!-- Google Tag Manager (1st party) -->
+  <script>(function (w, d, s, l, i) {
+      w[l] = w[l] || []; w[l].push({
+        'gtm.start':
+          new Date().getTime(), event: 'gtm.js'
+      }); var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+          'https://load.ss.digital-store-lab.space/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-52V8NGGJ');</script>
+  <!-- End Google Tag Manager -->
 </head>
 
 <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://load.ss.digital-store-lab.space/ns.html?id=GTM-52V8NGGJ"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://load.ss.digital-store-lab.space/ns.html?id=GTM-52V8NGGJ" height="0" width="0"
+      style="display:none;visibility:hidden"></iframe></noscript>
 
-<h1>Your Cart</h1>
+  <h1>Your Cart</h1>
 
-<ul id="cart-list"></ul>
-<p>Total: $<span id="total">0</span></p>
+  <ul id="cart-list"></ul>
+  <p>Total: $<span id="total">0</span></p>
 
-<button onclick="checkout()">Proceed to Checkout</button>
+  <button onclick="checkout()">Proceed to Checkout</button>
 
-<script>
-const products = {
-  "focus-planner": { name: "Focus Planner PDF", price: 9 },
-  "notion-template": { name: "Notion Workspace Template", price: 19 },
-  "marketing-checklist": { name: "Marketing Checklist PDF", price: 12 },
-  "pro-bundle": { name: "Pro Bundle", price: 29 }
-};
+  <script>
+    const products = {
+      "focus-planner": { name: "Focus Planner PDF", price: 9 },
+      "notion-template": { name: "Notion Workspace Template", price: 19 },
+      "marketing-checklist": { name: "Marketing Checklist PDF", price: 12 },
+      "pro-bundle": { name: "Pro Bundle", price: 29 }
+    };
 
-// --------------------
-// Render cart + push view_cart
-// --------------------
-function renderCart() {
-  const cart = JSON.parse(localStorage.getItem('cart')) || [];
-  const list = document.getElementById('cart-list');
-  list.innerHTML = '';
+    // --------------------
+    // Render cart + push view_cart
+    // --------------------
+    function renderCart() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const list = document.getElementById('cart-list');
+      list.innerHTML = '';
 
-  let total = 0;
+      let total = 0;
 
-  cart.forEach(id => {
-    const li = document.createElement('li');
-    li.textContent = products[id].name + ' - $' + products[id].price;
-    list.appendChild(li);
-    total += products[id].price;
-  });
+      cart.forEach(id => {
+        const li = document.createElement('li');
+        li.textContent = products[id].name + ' - $' + products[id].price;
+        list.appendChild(li);
+        total += products[id].price;
+      });
 
-  document.getElementById('total').textContent = total;
+      document.getElementById('total').textContent = total;
 
-  if (cart.length === 0) return;
+      if (cart.length === 0) return;
 
-  const items = cart.map(id => ({
-    item_id: id,
-    item_name: products[id].name,
-    price: products[id].price,
-    quantity: 1
-  }));
+      const items = cart.map(id => ({
+        item_id: id,
+        item_name: products[id].name,
+        price: products[id].price,
+        quantity: 1
+      }));
 
-  window.dataLayer = window.dataLayer || [];
-  dataLayer.push({
-    event: 'view_cart',
-    ecommerce: {
-      currency: 'USD',
-      value: total,
-      items: items
+      window.dataLayer = window.dataLayer || [];
+      dataLayer.push({
+        event: 'view_cart',
+        ecommerce: {
+          currency: 'USD',
+          value: total,
+          items: items
+        }
+      });
     }
-  });
-}
 
-// --------------------
-// Checkout button
-// --------------------
-function checkout() {
-  const cart = JSON.parse(localStorage.getItem('cart')) || [];
-  if (cart.length === 0) {
-    alert('Cart is empty!');
-    return;
-  }
-  window.location.href = 'checkout.html';
-}
+    // --------------------
+    // Checkout button
+    // --------------------
+    function checkout() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      if (cart.length === 0) {
+        alert('Cart is empty!');
+        return;
+      }
+      window.location.href = 'checkout.html';
+    }
 
-renderCart();
-</script>
+    renderCart();
+  </script>
 
-<p><a href="shop.html">Back to Shop</a></p>
+  <p><a href="shop.html">Back to Shop</a></p>
 
-<hr>
-<footer style="margin-top: 30px; font-size: 0.9em; color: #555;">
-  Demo project — non-commercial | <a href="index.html">Home</a>
-</footer>
+  <hr>
+  <footer style="margin-top: 30px; font-size: 0.9em; color: #555;">
+    Demo project — non-commercial | <a href="index.html">Home</a>
+  </footer>
 
 </body>
+
 </html>
