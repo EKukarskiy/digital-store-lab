@@ -1,9 +1,9 @@
 # 📊 Digital Store Lab — Ecommerce Analytics Project
 
-> A hands-on learning project built to practice real-world analytics implementation:  
+> A hands-on learning project built to practice real-world analytics implementation:
 > **GTM → DataLayer → GA4 → Consent Mode → Server-side tracking**
 
-🌐 Live site: [ekukarskiy.github.io/digital-store-lab](https://ekukarskiy.github.io/digital-store-lab/)  
+🌐 Live site: [digital-store-lab.space](https://digital-store-lab.space)
 📁 Repository: [github.com/EKukarskiy/digital-store-lab](https://github.com/EKukarskiy/digital-store-lab)
 
 ---
@@ -13,7 +13,7 @@
 | Page | Purpose |
 |---|---|
 | `/index.html` | Homepage |
-| `/shop.html` | Product catalog (Ecwid) |
+| `/shop.html` | Product catalog |
 | `/product.html` | Product detail page |
 | `/cart.html` | Shopping cart |
 | `/checkout.html` | Checkout |
@@ -24,17 +24,57 @@
 
 ## ⚙️ Technical Stack
 
-- **Hosting:** GitHub Pages (free, publicly accessible)
-- **Ecommerce:** Simulated via JS + localStorage (or Ecwid integration)
-- **Tag Management:** Google Tag Manager (GTM) — installed on all pages
+- **Hosting:** GitHub Pages (static, publicly accessible)
+- **Domain & Proxy:** Custom domain via Cloudflare (DNS, WAF, Workers)
+- **Server-side Infrastructure:** Stape.io (managed sGTM hosting)
+- **Tag Management:** Google Tag Manager — Web + Server container
 - **Analytics:** Google Analytics 4 (GA4)
 - **Consent:** Advanced Consent Mode (CoMo v2)
 
 ---
 
+## 🛡️ Server-Side Tracking — 1st Party Infrastructure
+
+This project goes beyond standard GTM implementation. I designed and deployed a full **1st-party server-side tracking infrastructure** — a setup typically reserved for production ecommerce environments.
+
+### What was implemented
+
+A complete data pipeline where the browser never communicates directly with Google or any third-party analytics domain. All traffic is routed through infrastructure I control.
+
+```
+Browser → digital-store-lab.space (Cloudflare Worker)
+       → ss.digital-store-lab.space (Stape)
+       → Server GTM
+       → GA4 / Facebook Conversion API
+```
+
+### Why it matters
+
+**Adblocker resistance** — GTM loads from the site's own domain. Standard blocklist rules targeting `googletagmanager.com` have no effect.
+
+**Safari ITP compliance** — Cookies are set as true 1st-party through JavaScript Managed mode in sGTM, guaranteeing up to 2 years lifetime instead of 7 days.
+
+**Data ownership** — All events pass through Server GTM before reaching any vendor. This enables data cleaning, PII removal (IP stripping for GDPR), and selective forwarding to GA4, Facebook, and other platforms.
+
+### Infrastructure stack
+
+| Layer | Technology | Role |
+|---|---|---|
+| DNS & Proxy | Cloudflare | Routes traffic, applies Worker, SSL |
+| Worker | Cloudflare Worker (`/mt/*`) | Intercepts & transforms requests |
+| Server hosting | Stape.io | Managed sGTM infrastructure |
+| Data endpoint | `ss.digital-store-lab.space` | 1st-party collection domain |
+| Script delivery | `load.ss.digital-store-lab.space` | 1st-party GTM script loading |
+
+### Notable implementation detail
+
+The project runs on a **static HTML site** (no CMS). Unlike WordPress or Shopify where GTM code lives in one template, each of the seven pages required manual GTM snippet updates to point to the 1st-party endpoints — a practical reminder of how infrastructure decisions affect implementation work at every level.
+
+---
+
 ## 📡 DataLayer Events
 
-All events are pushed from the **frontend** via `dataLayer.push()`.  
+All events are pushed from the frontend via `dataLayer.push()`.
 GTM does not parse the DOM — ecommerce data is passed strictly through the `ecommerce` object.
 
 **Rule:** one event = one GA4 tag.
@@ -58,16 +98,16 @@ In this project, I implemented a **Consent Management Framework** to ensure comp
 
 ### Key Implementation Details
 
-**Advanced Consent Mode (CoMo v2)**  
+**Advanced Consent Mode (CoMo v2)**
 GTM is configured to respect user privacy signals. By default, all tracking tags are in a denied state until explicit user interaction — ensuring no unauthorized data collection occurs.
 
-**GTM Tag Governance**  
-Used the Consent Overview feature in GTM to audit and control tag behavior. Tags are mapped to specific consent types (`ad_storage`, `analytics_storage`), allowing for "cookieless pings" even when cookies are rejected.
+**GTM Tag Governance**
+Used the Consent Overview feature in GTM to audit and control tag behavior. Tags are mapped to specific consent types (`ad_storage`, `analytics_storage`), allowing for cookieless pings even when cookies are rejected.
 
-**State Management & DataLayer**  
+**State Management & DataLayer**
 Designed a custom `dataLayer` architecture that synchronizes the Consent Banner UI with the GTM environment in real-time — without requiring a page reload.
 
-**Privacy-First Attribution**  
+**Privacy-First Attribution**
 Configured the setup to maintain high-quality attribution data while honoring the user's right to opt-out — a critical skill for modern digital measurement.
 
 ### How to Audit the Setup
@@ -82,9 +122,10 @@ Configured the setup to maintain high-quality attribution data while honoring th
 
 This project was built as a **portfolio piece** combining learning with real, employer-ready skills:
 
-- ✅ GTM + ecommerce tracking
+- ✅ GTM + ecommerce tracking (DataLayer architecture)
 - ✅ GA4 (correct Measurement Protocol)
-- ✅ Server-side event handling
+- ✅ Server-side GTM on production-grade infrastructure
+- ✅ 1st-party data collection (Cloudflare + Stape)
 - ✅ Consent Mode & privacy-first analytics
 
 > Skills directly requested in job listings for analytics roles.
@@ -93,5 +134,5 @@ This project was built as a **portfolio piece** combining learning with real, em
 
 ## 📬 Contact
 
-Built by **Evgeny Kukarskiy**  
+Built by **Evgeny Kukarskiy**
 [github.com/EKukarskiy](https://github.com/EKukarskiy)
