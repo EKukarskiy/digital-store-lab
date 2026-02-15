@@ -1,22 +1,22 @@
 
-// 1. Инициализация очереди
+// 1. Initialize the queue
 window.dataLayer = window.dataLayer || [];
 function gtag() { dataLayer.push(arguments); }
 
-// 2. Установка Default состояния
+// 2. Setting the Default state
 if (!localStorage.getItem('consentMode')) {
     gtag('consent', 'default', {
         'ad_storage': 'denied',
         'analytics_storage': 'denied',
         'personalization_storage': 'denied',
-        'wait_for_update': 500 // Ждем 500мс для синхронизации
+        'wait_for_update': 500 // Wait 500ms for synchronization
     });
 } else {
-    // Если выбор уже сделан, берем из памяти
+    // If the choice has already been made, we take it from memory
     gtag('consent', 'default', JSON.parse(localStorage.getItem('consentMode')));
 }
 
-// 3. Функция обработки клика
+// 3. Click processing function
 function updateConsent(isAccepted) {
     const status = isAccepted ? 'granted' : 'denied';
     const consentStatus = {
@@ -24,24 +24,24 @@ function updateConsent(isAccepted) {
         'analytics_storage': status,
         'personalization_storage': status
     };
-    
-    // Обновляем Consent Mode
+
+    // Update Consent Mode
     gtag('consent', 'update', consentStatus);
-    
-    // Сохраняем выбор
+
+    // Save the selection
     localStorage.setItem('consentMode', JSON.stringify(consentStatus));
-    
-    // Пушим событие в DataLayer для GTM триггеров
+
+    // Push an event to the DataLayer for GTM triggers
     window.dataLayer.push({
         'event': 'consent_updated',
         'consent_status': status
     });
-    
-    // Скрываем баннер
+
+    // Hide the banner
     document.getElementById('consent-banner').style.display = 'none';
 }
 
-// 4. Отрисовка баннера
+// 4. Drawing the banner
 window.addEventListener('DOMContentLoaded', () => {
     if (!localStorage.getItem('consentMode')) {
         const banner = document.createElement('div');

@@ -1,33 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Shop | Digital Store Lab</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-    body { font-family: sans-serif; padding: 20px; }
-    .product { border: 1px solid #ccc; padding: 15px; margin: 10px 0; }
-    button { padding: 5px 10px; cursor: pointer; }
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+    }
+
+    .product {
+      border: 1px solid #ccc;
+      padding: 15px;
+      margin: 10px 0;
+    }
+
+    button {
+      padding: 5px 10px;
+      cursor: pointer;
+    }
   </style>
-  
+
   <!-- Consent banner -->
   <script src="consent.js"></script>
-  
-<!-- Google Tag Manager (1st party) -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://load.ss.digital-store-lab.space/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-52V8NGGJ');</script>
-<!-- End Google Tag Manager -->
+
+  <!-- Google Tag Manager (1st party) -->
+  <script>(function (w, d, s, l, i) {
+      w[l] = w[l] || []; w[l].push({
+        'gtm.start':
+          new Date().getTime(), event: 'gtm.js'
+      }); var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+          'https://load.ss.digital-store-lab.space/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-52V8NGGJ');</script>
+  <!-- End Google Tag Manager -->
 </head>
-  
+
 <body>
 
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://load.ss.digital-store-lab.space/ns.html?id=GTM-52V8NGGJ"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://load.ss.digital-store-lab.space/ns.html?id=GTM-52V8NGGJ" height="0" width="0"
+      style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
 
   <!-- Navigation -->
   <nav>
@@ -64,40 +80,40 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 
   <script>
-  const products = {
-    "focus-planner": {name: "Focus Planner PDF", price: 9},
-    "notion-template": {name: "Notion Workspace Template", price: 19},
-    "marketing-checklist": {name: "Marketing Checklist PDF", price: 12},
-    "pro-bundle": {name: "Pro Bundle", price: 29}
-  };
-
-  // --------------------
-  // ADD PRODUCT TO CART
-  // --------------------
-  function addToCart(id) {
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    cart.push(id);
-    localStorage.setItem('cart', JSON.stringify(cart));
-    alert(products[id].name + ' added to cart!');
+    const products = {
+      "focus-planner": { name: "Focus Planner PDF", price: 9 },
+      "notion-template": { name: "Notion Workspace Template", price: 19 },
+      "marketing-checklist": { name: "Marketing Checklist PDF", price: 12 },
+      "pro-bundle": { name: "Pro Bundle", price: 29 }
+    };
 
     // --------------------
-    // PUSH add_to_cart EVENT TO dataLayer
+    // ADD PRODUCT TO CART
     // --------------------
-    window.dataLayer = window.dataLayer || [];
-    dataLayer.push({
-      event: 'add_to_cart',
-      ecommerce: {
-        currency: 'USD',
-        value: Number(products[id].price), // ensure price is numeric
-        items: [{
-          item_id: id,
-          item_name: products[id].name,
-          price: Number(products[id].price), // ensure GA4 sees correct price
-          quantity: 1
-        }]
-      }
-    });
-  }
+    function addToCart(id) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart.push(id);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      alert(products[id].name + ' added to cart!');
+
+      // --------------------
+      // PUSH add_to_cart EVENT TO dataLayer
+      // --------------------
+      window.dataLayer = window.dataLayer || [];
+      dataLayer.push({
+        event: 'add_to_cart',
+        ecommerce: {
+          currency: 'USD',
+          value: Number(products[id].price), // ensure price is numeric
+          items: [{
+            item_id: id,
+            item_name: products[id].name,
+            price: Number(products[id].price), // ensure GA4 sees correct price
+            quantity: 1
+          }]
+        }
+      });
+    }
   </script>
 
   <p>
@@ -111,5 +127,5 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </footer>
 
 </body>
-</html>
 
+</html>

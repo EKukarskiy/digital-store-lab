@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Thank You | Digital Store Lab</title>
@@ -8,57 +9,62 @@
   <!-- Consent banner -->
   <script src="consent.js"></script>
 
-<!-- Google Tag Manager (1st party) -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://load.ss.digital-store-lab.space/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-52V8NGGJ');</script>
-<!-- End Google Tag Manager -->
-  
+  <!-- Google Tag Manager (1st party) -->
+  <script>(function (w, d, s, l, i) {
+      w[l] = w[l] || []; w[l].push({
+        'gtm.start':
+          new Date().getTime(), event: 'gtm.js'
+      }); var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+          'https://load.ss.digital-store-lab.space/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-52V8NGGJ');</script>
+  <!-- End Google Tag Manager -->
+
 </head>
+
 <body>
 
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://load.ss.digital-store-lab.space/ns.html?id=GTM-52V8NGGJ"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-  
-<h1>Thank You!</h1>
-<p>Your demo purchase is complete.</p>
-<p>All files are available for download (demo).</p>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://load.ss.digital-store-lab.space/ns.html?id=GTM-52V8NGGJ" height="0" width="0"
+      style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
 
-<ul>
-  <li>Focus Planner PDF</li>
-  <li>Notion Workspace Template</li>
-  <li>Marketing Checklist PDF</li>
-</ul>
+  <h1>Thank You!</h1>
+  <p>Your demo purchase is complete.</p>
+  <p>All files are available for download (demo).</p>
 
-<button onclick="alert('This is a demo download!')">Download PDF (demo)</button>
+  <ul>
+    <li>Focus Planner PDF</li>
+    <li>Notion Workspace Template</li>
+    <li>Marketing Checklist PDF</li>
+  </ul>
 
-<p><a href="shop.html">Back to Shop</a></p>
+  <button onclick="alert('This is a demo download!')">Download PDF (demo)</button>
 
-<hr>
-<footer style="margin-top: 30px; font-size: 0.9em; color: #555;">
-  Demo project — non-commercial | <a href="index.html">Home</a>
-</footer>
+  <p><a href="shop.html">Back to Shop</a></p>
 
-<script>
-window.dataLayer = window.dataLayer || [];
+  <hr>
+  <footer style="margin-top: 30px; font-size: 0.9em; color: #555;">
+    Demo project — non-commercial | <a href="index.html">Home</a>
+  </footer>
 
-// Push purchase event if order data exists
-const orderData = JSON.parse(sessionStorage.getItem('orderData'));
+  <script>
+    window.dataLayer = window.dataLayer || [];
 
-if (orderData) {
-  dataLayer.push({
-    event: 'purchase',
-    ecommerce: orderData
-  });
+    // Push purchase event if order data exists
+    const orderData = JSON.parse(sessionStorage.getItem('orderData'));
 
-  // Clear session to avoid duplicate events
-  sessionStorage.removeItem('orderData');
-}
-</script>
+    if (orderData) {
+      dataLayer.push({
+        event: 'purchase',
+        ecommerce: orderData
+      });
+
+      // Clear session to avoid duplicate events
+      sessionStorage.removeItem('orderData');
+    }
+  </script>
 
 </body>
+
 </html>

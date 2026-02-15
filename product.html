@@ -1,67 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Focus Planner PDF | Digital Store Lab</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- Consent banner -->
-<script src="consent.js"></script>
+  <!-- Consent banner -->
+  <script src="consent.js"></script>
 
-<!-- Google Tag Manager (1st party) -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://load.ss.digital-store-lab.space/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-52V8NGGJ');</script>
-<!-- End Google Tag Manager -->
-  
+  <!-- Google Tag Manager (1st party) -->
+  <script>(function (w, d, s, l, i) {
+      w[l] = w[l] || []; w[l].push({
+        'gtm.start':
+          new Date().getTime(), event: 'gtm.js'
+      }); var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+          'https://load.ss.digital-store-lab.space/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-52V8NGGJ');</script>
+  <!-- End Google Tag Manager -->
+
 </head>
+
 <body>
 
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://load.ss.digital-store-lab.space/ns.html?id=GTM-52V8NGGJ"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-  
-<h1>Focus Planner PDF - $9</h1>
-<p>Daily & weekly planner to boost focus.</p>
-<button onclick="addToCart('focus-planner')">Add to Cart</button>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://load.ss.digital-store-lab.space/ns.html?id=GTM-52V8NGGJ" height="0" width="0"
+      style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
 
-<script>
-const products = {
-  "focus-planner": {name: "Focus Planner PDF", price: 9}
-};
+  <h1>Focus Planner PDF - $9</h1>
+  <p>Daily & weekly planner to boost focus.</p>
+  <button onclick="addToCart('focus-planner')">Add to Cart</button>
 
-function addToCart(id) {
-  let cart = JSON.parse(localStorage.getItem('cart')) || [];
-  cart.push(id);
-  localStorage.setItem('cart', JSON.stringify(cart));
-  alert(products[id].name + ' added to cart!');
-  // GTM ecommerce event
-  window.dataLayer = window.dataLayer || [];
-  dataLayer.push({
-    event: 'add_to_cart',
-    ecommerce: {
-      currency: 'USD',
-      value: products[id].price,
-      items: [{
-        item_id: id,
-        item_name: products[id].name,
-        price: products[id].price,
-        quantity: 1
-      }]
+  <script>
+    const products = {
+      "focus-planner": { name: "Focus Planner PDF", price: 9 }
+    };
+
+    function addToCart(id) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart.push(id);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      alert(products[id].name + ' added to cart!');
+      
+      // GTM ecommerce event
+      window.dataLayer = window.dataLayer || [];
+      dataLayer.push({
+        event: 'add_to_cart',
+        ecommerce: {
+          currency: 'USD',
+          value: products[id].price,
+          items: [{
+            item_id: id,
+            item_name: products[id].name,
+            price: products[id].price,
+            quantity: 1
+          }]
+        }
+      });
     }
-  });
-}
-</script>
+  </script>
 
-<p><a href="cart.html">Go to Cart</a></p>
+  <p><a href="cart.html">Go to Cart</a></p>
 
   <hr>
-<footer style="margin-top: 30px; font-size: 0.9em; color: #555;">
-  Demo project — non-commercial | <a href="index.html">Home</a>
-</footer>
+  <footer style="margin-top: 30px; font-size: 0.9em; color: #555;">
+    Demo project — non-commercial | <a href="index.html">Home</a>
+  </footer>
 
 </body>
+
 </html>
