@@ -168,6 +168,22 @@
 
     .btn-secondary:hover { color: #111; border-color: #111; }
 
+    .btn-clear {
+      font-size: 0.8rem;
+      color: #bbb;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.15s;
+    }
+
+    .btn-clear:hover { color: #e55; }
+
     /* FOOTER */
     footer {
       padding: 24px 48px;
@@ -233,6 +249,7 @@
         <button class="btn-primary" onclick="checkout()">Proceed to Checkout →</button>
         <a href="shop.html" class="btn-secondary">Continue shopping</a>
       </div>
+      <button class="btn-clear" onclick="clearCart()">🗑️ Clear cart</button>
     </div>
 
     <div id="empty-state" class="empty-state" style="display:none;">
@@ -297,6 +314,11 @@
       const cart = JSON.parse(localStorage.getItem('cart')) || [];
       if (cart.length === 0) { alert('Cart is empty!'); return; }
       window.location.href = 'checkout.html';
+    }
+
+    function clearCart() {
+      localStorage.removeItem('cart');
+      renderCart();
     }
 
     renderCart();
