@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <title>Digital Store Lab</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
   <!-- Consent banner -->
   <script src="consent.js"></script>
-
   <!-- Google Tag Manager (1st party) -->
   <script>(function (w, d, s, l, i) {
       w[l] = w[l] || []; w[l].push({
@@ -19,31 +16,189 @@
           'https://load.ss.digital-store-lab.space/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
     })(window, document, 'script', 'dataLayer', 'GTM-52V8NGGJ');</script>
   <!-- End Google Tag Manager -->
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    body {
+      font-family: 'Georgia', serif;
+      background: #ffffff;
+      color: #111111;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* NAV */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 48px;
+      border-bottom: 1px solid #e8e8e8;
+    }
+
+    .nav-logo {
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #111;
+      text-decoration: none;
+    }
+
+    .nav-link {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.875rem;
+      color: #111;
+      text-decoration: none;
+      padding: 8px 20px;
+      border: 1.5px solid #111;
+      border-radius: 4px;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .nav-link:hover {
+      background: #111;
+      color: #fff;
+    }
+
+    /* HERO */
+    .hero {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 24px;
+    }
+
+    .hero-label {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      color: #111;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 1rem;
+      color: #666;
+      line-height: 1.6;
+      max-width: 400px;
+      margin-bottom: 40px;
+    }
+
+    .btn-primary {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #fff;
+      background: #111;
+      padding: 14px 32px;
+      border-radius: 4px;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: background 0.15s, transform 0.1s;
+      display: inline-block;
+    }
+
+    .btn-primary:hover {
+      background: #333;
+      transform: translateY(-1px);
+    }
+
+    /* BADGE ROW */
+    .badges {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 48px;
+    }
+
+    .badge {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #888;
+      background: #f5f5f5;
+      padding: 6px 12px;
+      border-radius: 100px;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 24px 48px;
+      border-top: 1px solid #e8e8e8;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-note {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.8rem;
+      color: #aaa;
+    }
+
+    .footer-link {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.8rem;
+      color: #888;
+      text-decoration: none;
+    }
+
+    .footer-link:hover { color: #111; }
+
+    @media (max-width: 600px) {
+      nav, footer { padding: 20px 24px; }
+      .hero { padding: 60px 24px; }
+    }
+  </style>
 </head>
-
 <body>
-
   <!-- Google Tag Manager (noscript) -->
   <noscript><iframe src="https://load.ss.digital-store-lab.space/ns.html?id=GTM-52V8NGGJ" height="0" width="0"
       style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
 
-  <h1>Digital Store Lab</h1>
-  <p>
-    Demo project for learning.<br>
-    No real payments. No commercial activity.
-  </p>
-
   <nav>
-    <a href="shop.html">Shop</a>
+    <a href="index.html" class="nav-logo">Digital Store Lab</a>
+    <a href="shop.html" class="nav-link">Shop</a>
   </nav>
 
-  <hr>
-  <footer style="margin-top: 30px; font-size: 0.9em; color: #555;">
-    Demo project — non-commercial | <a href="index.html">Home</a>
+  <main class="hero">
+    <p class="hero-label">Analytics Demo Project</p>
+    <h1>Digital Store Lab</h1>
+    <p>Demo project for learning ecommerce analytics.<br>No real payments. No commercial activity.</p>
+    <a href="shop.html" class="btn-primary">Browse Shop →</a>
+
+    <div class="badges">
+      <span class="badge">GTM Server-Side</span>
+      <span class="badge">GA4</span>
+      <span class="badge">1st Party Tracking</span>
+      <span class="badge">Consent Mode v2</span>
+      <span class="badge">Facebook CAPI</span>
+    </div>
+  </main>
+
+  <footer>
+    <span class="footer-note">Demo project — non-commercial</span>
+    <a href="index.html" class="footer-link">Home</a>
   </footer>
 
 </body>
-
 </html>
