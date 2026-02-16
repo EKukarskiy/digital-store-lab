@@ -1,14 +1,200 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <title>Cart | Digital Store Lab</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background: #f5f5f5;
+      color: #111;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* NAV */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 48px;
+      background: #fff;
+      border-bottom: 1px solid #e8e8e8;
+    }
+
+    .nav-logo {
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #111;
+      text-decoration: none;
+    }
+
+    .nav-link {
+      font-size: 0.875rem;
+      color: #111;
+      text-decoration: none;
+      padding: 8px 20px;
+      border: 1.5px solid #111;
+      border-radius: 4px;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .nav-link:hover { background: #111; color: #fff; }
+
+    /* PAGE HEADER */
+    .page-header {
+      background: #fff;
+      border-bottom: 1px solid #e8e8e8;
+      padding: 40px 48px 32px;
+    }
+
+    .page-header h1 {
+      font-family: 'Georgia', serif;
+      font-size: 2rem;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+    }
+
+    /* CART CONTENT */
+    .cart-wrapper {
+      flex: 1;
+      padding: 40px 48px;
+      max-width: 720px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    /* EMPTY STATE */
+    .empty-state {
+      text-align: center;
+      padding: 60px 24px;
+      color: #888;
+    }
+
+    .empty-state .empty-icon { font-size: 3rem; margin-bottom: 16px; }
+    .empty-state p { font-size: 1rem; margin-bottom: 24px; }
+
+    /* CART ITEMS */
+    .cart-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .cart-item {
+      background: #fff;
+      border: 1px solid #e8e8e8;
+      border-radius: 8px;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .cart-item-name {
+      font-size: 0.95rem;
+      color: #111;
+    }
+
+    .cart-item-price {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #111;
+    }
+
+    /* TOTAL */
+    .cart-total {
+      background: #fff;
+      border: 1px solid #e8e8e8;
+      border-radius: 8px;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+
+    .cart-total-label {
+      font-size: 0.875rem;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .cart-total-value {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #111;
+    }
+
+    /* ACTIONS */
+    .cart-actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .btn-primary {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #fff;
+      background: #111;
+      border: none;
+      padding: 14px 32px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.15s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-primary:hover { background: #333; }
+
+    .btn-secondary {
+      font-size: 0.875rem;
+      color: #888;
+      text-decoration: none;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 2px;
+    }
+
+    .btn-secondary:hover { color: #111; border-color: #111; }
+
+    /* FOOTER */
+    footer {
+      padding: 24px 48px;
+      border-top: 1px solid #e8e8e8;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-note { font-size: 0.8rem; color: #aaa; }
+
+    .footer-link {
+      font-size: 0.8rem;
+      color: #888;
+      text-decoration: none;
+    }
+
+    .footer-link:hover { color: #111; }
+
+    @media (max-width: 600px) {
+      nav, .page-header, footer { padding: 20px 24px; }
+      .cart-wrapper { padding: 24px; }
+    }
+  </style>
   <!-- Consent banner -->
   <script src="consent.js"></script>
-
   <!-- Google Tag Manager (1st party) -->
   <script>(function (w, d, s, l, i) {
       w[l] = w[l] || []; w[l].push({
@@ -20,18 +206,46 @@
     })(window, document, 'script', 'dataLayer', 'GTM-52V8NGGJ');</script>
   <!-- End Google Tag Manager -->
 </head>
-
 <body>
   <!-- Google Tag Manager (noscript) -->
   <noscript><iframe src="https://load.ss.digital-store-lab.space/ns.html?id=GTM-52V8NGGJ" height="0" width="0"
       style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
 
-  <h1>Your Cart</h1>
+  <nav>
+    <a href="index.html" class="nav-logo">Digital Store Lab</a>
+    <a href="shop.html" class="nav-link">← Shop</a>
+  </nav>
 
-  <ul id="cart-list"></ul>
-  <p>Total: $<span id="total">0</span></p>
+  <div class="page-header">
+    <h1>Your Cart</h1>
+  </div>
 
-  <button onclick="checkout()">Proceed to Checkout</button>
+  <div class="cart-wrapper">
+    <ul class="cart-list" id="cart-list"></ul>
+
+    <div id="cart-summary" style="display:none;">
+      <div class="cart-total">
+        <span class="cart-total-label">Total</span>
+        <span class="cart-total-value">$<span id="total">0</span></span>
+      </div>
+      <div class="cart-actions">
+        <button class="btn-primary" onclick="checkout()">Proceed to Checkout →</button>
+        <a href="shop.html" class="btn-secondary">Continue shopping</a>
+      </div>
+    </div>
+
+    <div id="empty-state" class="empty-state" style="display:none;">
+      <div class="empty-icon">🛒</div>
+      <p>Your cart is empty</p>
+      <a href="shop.html" class="btn-primary">Browse Shop</a>
+    </div>
+  </div>
+
+  <footer>
+    <span class="footer-note">Demo project — non-commercial</span>
+    <a href="index.html" class="footer-link">Home</a>
+  </footer>
 
   <script>
     const products = {
@@ -41,26 +255,29 @@
       "pro-bundle": { name: "Pro Bundle", price: 29 }
     };
 
-    // --------------------
-    // Render cart + push view_cart
-    // --------------------
     function renderCart() {
       const cart = JSON.parse(localStorage.getItem('cart')) || [];
       const list = document.getElementById('cart-list');
       list.innerHTML = '';
-
       let total = 0;
+
+      if (cart.length === 0) {
+        document.getElementById('empty-state').style.display = 'block';
+        document.getElementById('cart-summary').style.display = 'none';
+        return;
+      }
 
       cart.forEach(id => {
         const li = document.createElement('li');
-        li.textContent = products[id].name + ' - $' + products[id].price;
+        li.className = 'cart-item';
+        li.innerHTML = `<span class="cart-item-name">${products[id].name}</span><span class="cart-item-price">$${products[id].price}</span>`;
         list.appendChild(li);
         total += products[id].price;
       });
 
       document.getElementById('total').textContent = total;
-
-      if (cart.length === 0) return;
+      document.getElementById('cart-summary').style.display = 'block';
+      document.getElementById('empty-state').style.display = 'none';
 
       const items = cart.map(id => ({
         item_id: id,
@@ -72,36 +289,18 @@
       window.dataLayer = window.dataLayer || [];
       dataLayer.push({
         event: 'view_cart',
-        ecommerce: {
-          currency: 'USD',
-          value: total,
-          items: items
-        }
+        ecommerce: { currency: 'USD', value: total, items: items }
       });
     }
 
-    // --------------------
-    // Checkout button
-    // --------------------
     function checkout() {
       const cart = JSON.parse(localStorage.getItem('cart')) || [];
-      if (cart.length === 0) {
-        alert('Cart is empty!');
-        return;
-      }
+      if (cart.length === 0) { alert('Cart is empty!'); return; }
       window.location.href = 'checkout.html';
     }
 
     renderCart();
   </script>
 
-  <p><a href="shop.html">Back to Shop</a></p>
-
-  <hr>
-  <footer style="margin-top: 30px; font-size: 0.9em; color: #555;">
-    Demo project — non-commercial | <a href="index.html">Home</a>
-  </footer>
-
 </body>
-
 </html>
