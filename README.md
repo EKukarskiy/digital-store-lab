@@ -118,6 +118,61 @@ Configured the setup to maintain high-quality attribution data while honoring th
 
 ---
 
+## 📘 Facebook Conversions API — Architecture Demo
+
+As part of this project, I configured a **Facebook Conversions API (CAPI)** integration via Server GTM using the Stape Facebook CAPI tag.
+
+> **Note:** No live Meta Business account was used. The integration was built and validated at the infrastructure level to demonstrate architecture and configuration skills — the standard workflow in agency and in-house analytics roles, where the analyst configures the pipeline using credentials provided by the client.
+
+### What was configured
+
+- Stape Facebook CAPI tag added to sGTM from the Template Gallery
+- Tag set to **Inherit from client** — automatically maps GA4 events to standard Facebook events
+- Trigger: `CE - All Events` — fires on all incoming events from the web container
+- Full ecommerce payload verified in sGTM Preview Mode
+
+### Verified request payload (sGTM Preview)
+
+The tag fires and sends a correctly structured `POST` request to `graph.facebook.com`. The payload below confirms that all ecommerce parameters are correctly mapped:
+
+```json
+{
+  "data": [{
+    "event_name": "AddToCart",
+    "action_source": "website",
+    "event_time": 1771240297,
+    "custom_data": {
+      "contents": [{"id": "focus-planner", "title": "Focus Planner PDF", "quantity": 1, "item_price": 9}],
+      "content_type": "product",
+      "content_name": "Focus Planner PDF",
+      "value": 9,
+      "currency": "USD"
+    },
+    "user_data": {
+      "client_user_agent": "Mozilla/5.0...",
+      "client_ip_address": "172.64.x.x",
+      "fbp": "fb.1.xxx.xxx"
+    },
+    "event_source_url": "https://digital-store-lab.space/shop.html"
+  }],
+  "partner_agent": "stape-gtmss-2.1.3-ee"
+}
+```
+
+**Response:** `400 Invalid OAuth access token` — expected, as test credentials were used. With a real `Pixel ID` and `Access Token` from Meta Business Manager, the response would be `200` and events would appear in Meta Events Manager.
+
+### GA4 → Facebook event mapping (automatic)
+
+| GA4 Event | Facebook Event |
+|---|---|
+| `page_view` | `PageView` |
+| `view_item` | `ViewContent` |
+| `add_to_cart` | `AddToCart` |
+| `begin_checkout` | `InitiateCheckout` |
+| `purchase` | `Purchase` |
+
+---
+
 ## 🎯 Why This Project
 
 This project was built as a **portfolio piece** combining learning with real, employer-ready skills:
@@ -126,6 +181,7 @@ This project was built as a **portfolio piece** combining learning with real, em
 - ✅ GA4 (correct Measurement Protocol)
 - ✅ Server-side GTM on production-grade infrastructure
 - ✅ 1st-party data collection (Cloudflare + Stape)
+- ✅ Facebook Conversions API via sGTM (architecture + payload verified)
 - ✅ Consent Mode & privacy-first analytics
 
 > Skills directly requested in job listings for analytics roles.
