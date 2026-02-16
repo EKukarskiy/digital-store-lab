@@ -92,7 +92,6 @@ GTM does not parse the DOM — ecommerce data is passed strictly through the `ec
 | `begin_checkout` | ✅ |
 | `purchase` | ✅ |
 | `scroll_events` | ✅ |
-| `video_events` | ✅ |
 | `form_submits` | ✅ |
 
 ![sGTM GA4 event DataLayer payload](assets/screenshots/sgtm-ga4-event-datalayer.png)
