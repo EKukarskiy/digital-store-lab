@@ -1,4 +1,3 @@
-
 // 1. Initialize the queue
 window.dataLayer = window.dataLayer || [];
 function gtag() { dataLayer.push(arguments); }
@@ -9,10 +8,9 @@ if (!localStorage.getItem('consentMode')) {
         'ad_storage': 'denied',
         'analytics_storage': 'denied',
         'personalization_storage': 'denied',
-        'wait_for_update': 500 // Wait 500ms for synchronization
+        'wait_for_update': 500
     });
 } else {
-    // If the choice has already been made, we take it from memory
     gtag('consent', 'default', JSON.parse(localStorage.getItem('consentMode')));
 }
 
@@ -24,20 +22,12 @@ function updateConsent(isAccepted) {
         'analytics_storage': status,
         'personalization_storage': status
     };
-
-    // Update Consent Mode
     gtag('consent', 'update', consentStatus);
-
-    // Save the selection
     localStorage.setItem('consentMode', JSON.stringify(consentStatus));
-
-    // Push an event to the DataLayer for GTM triggers
     window.dataLayer.push({
         'event': 'consent_updated',
         'consent_status': status
     });
-
-    // Hide the banner
     document.getElementById('consent-banner').style.display = 'none';
 }
 
@@ -47,13 +37,54 @@ window.addEventListener('DOMContentLoaded', () => {
         const banner = document.createElement('div');
         banner.id = 'consent-banner';
         banner.innerHTML = `
-            <div style="position: fixed; bottom: 0; left: 0; right: 0; background: #1a1a1a; color: #fff; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; z-index: 10000; font-family: -apple-system, sans-serif; font-size: 14px; box-shadow: 0 -2px 10px rgba(0,0,0,0.3);">
-                <div style="margin-right: 20px;">
+            <div style="
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: #ffffff;
+                border-top: 1px solid #e8e8e8;
+                box-shadow: 0 -4px 24px rgba(0,0,0,0.08);
+                padding: 20px 48px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                z-index: 10000;
+                font-family: 'Helvetica Neue', Arial, sans-serif;
+                gap: 24px;
+            ">
+                <div style="font-size: 0.875rem; color: #666; line-height: 1.5; max-width: 600px;">
                     We use cookies to analyze traffic and optimize your experience on this learning website.
                 </div>
-                <div style="display: flex; gap: 10px;">
-                    <button onclick="updateConsent(true)" style="background: #4CAF50; color: white; border: none; padding: 8px 16px; cursor: pointer; border-radius: 4px; font-weight: bold;">Accept All</button>
-                    <button onclick="updateConsent(false)" style="background: transparent; color: #ccc; border: 1px solid #444; padding: 8px 16px; cursor: pointer; border-radius: 4px;">Reject</button>
+                <div style="display: flex; gap: 12px; flex-shrink: 0;">
+                    <button onclick="updateConsent(false)" style="
+                        font-family: 'Helvetica Neue', Arial, sans-serif;
+                        font-size: 0.875rem;
+                        color: #888;
+                        background: transparent;
+                        border: 1.5px solid #e8e8e8;
+                        padding: 10px 20px;
+                        cursor: pointer;
+                        border-radius: 4px;
+                        transition: border-color 0.15s, color 0.15s;
+                    "
+                    onmouseover="this.style.borderColor='#111';this.style.color='#111'"
+                    onmouseout="this.style.borderColor='#e8e8e8';this.style.color='#888'"
+                    >Reject</button>
+                    <button onclick="updateConsent(true)" style="
+                        font-family: 'Helvetica Neue', Arial, sans-serif;
+                        font-size: 0.875rem;
+                        font-weight: 500;
+                        color: #ffffff;
+                        background: #111111;
+                        border: none;
+                        padding: 10px 20px;
+                        cursor: pointer;
+                        border-radius: 4px;
+                    "
+                    onmouseover="this.style.background='#333'"
+                    onmouseout="this.style.background='#111'"
+                    >Accept All</button>
                 </div>
             </div>`;
         document.body.appendChild(banner);
