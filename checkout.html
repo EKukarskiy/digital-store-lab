@@ -1,14 +1,182 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <title>Checkout | Digital Store Lab</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background: #f5f5f5;
+      color: #111;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* NAV */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 48px;
+      background: #fff;
+      border-bottom: 1px solid #e8e8e8;
+    }
+
+    .nav-logo {
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #111;
+      text-decoration: none;
+    }
+
+    .nav-link {
+      font-size: 0.875rem;
+      color: #111;
+      text-decoration: none;
+      padding: 8px 20px;
+      border: 1.5px solid #111;
+      border-radius: 4px;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .nav-link:hover { background: #111; color: #fff; }
+
+    /* PAGE HEADER */
+    .page-header {
+      background: #fff;
+      border-bottom: 1px solid #e8e8e8;
+      padding: 40px 48px 32px;
+    }
+
+    .page-header h1 {
+      font-family: 'Georgia', serif;
+      font-size: 2rem;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      margin-bottom: 8px;
+    }
+
+    .page-header p {
+      font-size: 0.875rem;
+      color: #888;
+    }
+
+    /* CHECKOUT WRAPPER */
+    .checkout-wrapper {
+      flex: 1;
+      padding: 40px 48px;
+      max-width: 520px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    /* FORM CARD */
+    .form-card {
+      background: #fff;
+      border: 1px solid #e8e8e8;
+      border-radius: 8px;
+      padding: 32px;
+      margin-bottom: 16px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: 8px;
+    }
+
+    .form-input {
+      width: 100%;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.95rem;
+      color: #111;
+      background: #f9f9f9;
+      border: 1.5px solid #e8e8e8;
+      border-radius: 4px;
+      padding: 12px 16px;
+      outline: none;
+      transition: border-color 0.15s;
+      margin-bottom: 24px;
+    }
+
+    .form-input:focus { border-color: #111; background: #fff; }
+
+    .form-note {
+      font-size: 0.8rem;
+      color: #aaa;
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    .btn-primary {
+      width: 100%;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #fff;
+      background: #111;
+      border: none;
+      padding: 14px 32px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .btn-primary:hover { background: #333; }
+
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 16px;
+      font-size: 0.875rem;
+      color: #888;
+      text-decoration: none;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 2px;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .back-link:hover { color: #111; border-color: #111; }
+
+    /* FOOTER */
+    footer {
+      padding: 24px 48px;
+      border-top: 1px solid #e8e8e8;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-note { font-size: 0.8rem; color: #aaa; }
+
+    .footer-link {
+      font-size: 0.8rem;
+      color: #888;
+      text-decoration: none;
+    }
+
+    .footer-link:hover { color: #111; }
+
+    @media (max-width: 600px) {
+      nav, .page-header, footer { padding: 20px 24px; }
+      .checkout-wrapper { padding: 24px; }
+    }
+  </style>
   <!-- Consent banner -->
   <script src="consent.js"></script>
-
   <!-- Google Tag Manager (1st party) -->
   <script>(function (w, d, s, l, i) {
       w[l] = w[l] || []; w[l].push({
@@ -20,21 +188,38 @@
     })(window, document, 'script', 'dataLayer', 'GTM-52V8NGGJ');</script>
   <!-- End Google Tag Manager -->
 </head>
-
 <body>
-
   <!-- Google Tag Manager (noscript) -->
   <noscript><iframe src="https://load.ss.digital-store-lab.space/ns.html?id=GTM-52V8NGGJ" height="0" width="0"
       style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
 
-  <h1>Checkout</h1>
-  <p>Fill in your email to complete the demo purchase (no real payment).</p>
+  <nav>
+    <a href="index.html" class="nav-logo">Digital Store Lab</a>
+    <a href="cart.html" class="nav-link">← Cart</a>
+  </nav>
 
-  <form id="checkout-form">
-    <input type="email" placeholder="Your email" required>
-    <button type="submit">Place Order</button>
-  </form>
+  <div class="page-header">
+    <h1>Checkout</h1>
+    <p>Fill in your email to complete the demo purchase.</p>
+  </div>
+
+  <div class="checkout-wrapper">
+    <div class="form-card">
+      <form id="checkout-form">
+        <label class="form-label" for="email">Email address</label>
+        <input class="form-input" type="email" id="email" placeholder="you@example.com" required>
+        <p class="form-note">🔒 No real payment. This is a demo project for analytics learning purposes only.</p>
+        <button class="btn-primary" type="submit">Place Order →</button>
+      </form>
+    </div>
+    <a href="shop.html" class="back-link">← Back to Shop</a>
+  </div>
+
+  <footer>
+    <span class="footer-note">Demo project — non-commercial</span>
+    <a href="index.html" class="footer-link">Home</a>
+  </footer>
 
   <script>
     const products = {
@@ -44,9 +229,6 @@
       "pro-bundle": { name: "Pro Bundle", price: 29 }
     };
 
-    // --------------------
-    // PUSH begin_checkout ON PAGE LOAD
-    // --------------------
     window.dataLayer = window.dataLayer || [];
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
@@ -57,64 +239,34 @@
         price: products[id].price,
         quantity: 1
       }));
-
       const total = items.reduce((sum, item) => sum + item.price, 0);
-
       dataLayer.push({
         event: 'begin_checkout',
-        ecommerce: {
-          currency: 'USD',
-          value: total,
-          items: items
-        }
+        ecommerce: { currency: 'USD', value: total, items: items }
       });
     }
 
-    // --------------------
-    // HANDLE FORM SUBMIT
-    // --------------------
     document.getElementById('checkout-form').addEventListener('submit', function (e) {
       e.preventDefault();
-
-      if (cart.length === 0) {
-        alert('Cart is empty!');
-        return;
-      }
-
+      if (cart.length === 0) { alert('Cart is empty!'); return; }
       const items = cart.map(id => ({
         item_id: id,
         item_name: products[id].name,
         price: products[id].price,
         quantity: 1
       }));
-
       const total = items.reduce((sum, item) => sum + item.price, 0);
-
       const orderData = {
         transaction_id: 'T_' + Date.now(),
         currency: 'USD',
         value: total,
         items: items
       };
-
-      // Save order for Thank You page
       sessionStorage.setItem('orderData', JSON.stringify(orderData));
-
-      // Clear cart (demo logic)
       localStorage.removeItem('cart');
-
-      // Redirect to Thank You page
       window.location.href = 'thankyou.html';
     });
   </script>
 
-  <p><a href="shop.html">Back to Shop</a></p>
-
-  <hr>
-  <footer style="margin-top: 30px; font-size: 0.9em; color: #555;">
-    Demo project — non-commercial | <a href="index.html">Home</a>
-  </footer>
-
 </body>
-
 </html>
