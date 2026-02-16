@@ -1,14 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
-  <title>Focus Planner PDF | Digital Store Lab</title>
+  <title>Product | Digital Store Lab</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background: #f5f5f5;
+      color: #111;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* NAV */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 48px;
+      background: #fff;
+      border-bottom: 1px solid #e8e8e8;
+    }
+
+    .nav-logo {
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #111;
+      text-decoration: none;
+    }
+
+    .nav-link {
+      font-size: 0.875rem;
+      color: #111;
+      text-decoration: none;
+      padding: 8px 20px;
+      border: 1.5px solid #111;
+      border-radius: 4px;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .nav-link:hover { background: #111; color: #fff; }
+
+    /* MAIN */
+    .main {
+      flex: 1;
+      padding: 40px 48px;
+      max-width: 640px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .back-link {
+      display: inline-block;
+      font-size: 0.875rem;
+      color: #888;
+      text-decoration: none;
+      margin-bottom: 32px;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 2px;
+    }
+
+    .back-link:hover { color: #111; border-color: #111; }
+
+    /* PRODUCT CARD */
+    .product-card {
+      background: #fff;
+      border: 1px solid #e8e8e8;
+      border-radius: 8px;
+      padding: 40px;
+    }
+
+    .product-emoji {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .product-name {
+      font-family: 'Georgia', serif;
+      font-size: 1.75rem;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      margin-bottom: 12px;
+    }
+
+    .product-desc {
+      font-size: 0.95rem;
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+
+    .product-divider {
+      border: none;
+      border-top: 1px solid #e8e8e8;
+      margin-bottom: 28px;
+    }
+
+    .product-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .product-price {
+      font-size: 2rem;
+      font-weight: 600;
+      color: #111;
+    }
+
+    .btn-cart {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #fff;
+      background: #111;
+      border: none;
+      padding: 14px 32px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .btn-cart:hover { background: #333; }
+    .btn-cart:active { transform: scale(0.97); }
+
+    .cart-link {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      font-size: 0.875rem;
+      color: #888;
+      text-decoration: none;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 2px;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cart-link:hover { color: #111; border-color: #111; }
+
+    /* NOT FOUND */
+    .not-found {
+      text-align: center;
+      padding: 60px 24px;
+      color: #888;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 24px 48px;
+      border-top: 1px solid #e8e8e8;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-note { font-size: 0.8rem; color: #aaa; }
+
+    .footer-link {
+      font-size: 0.8rem;
+      color: #888;
+      text-decoration: none;
+    }
+
+    .footer-link:hover { color: #111; }
+
+    @media (max-width: 600px) {
+      nav, footer { padding: 20px 24px; }
+      .main { padding: 24px; }
+      .product-card { padding: 24px; }
+      .product-footer { flex-direction: column; gap: 16px; align-items: flex-start; }
+      .btn-cart { width: 100%; }
+    }
+  </style>
   <!-- Consent banner -->
   <script src="consent.js"></script>
-
   <!-- Google Tag Manager (1st party) -->
   <script>(function (w, d, s, l, i) {
       w[l] = w[l] || []; w[l].push({
@@ -19,32 +194,93 @@
           'https://load.ss.digital-store-lab.space/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
     })(window, document, 'script', 'dataLayer', 'GTM-52V8NGGJ');</script>
   <!-- End Google Tag Manager -->
-
 </head>
-
 <body>
-
   <!-- Google Tag Manager (noscript) -->
   <noscript><iframe src="https://load.ss.digital-store-lab.space/ns.html?id=GTM-52V8NGGJ" height="0" width="0"
       style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
 
-  <h1>Focus Planner PDF - $9</h1>
-  <p>Daily & weekly planner to boost focus.</p>
-  <button onclick="addToCart('focus-planner')">Add to Cart</button>
+  <nav>
+    <a href="index.html" class="nav-logo">Digital Store Lab</a>
+    <a href="cart.html" class="nav-link">Cart</a>
+  </nav>
+
+  <main class="main">
+    <a href="shop.html" class="back-link">← Back to Shop</a>
+    <div id="product-content"></div>
+  </main>
+
+  <footer>
+    <span class="footer-note">Demo project — non-commercial</span>
+    <a href="index.html" class="footer-link">Home</a>
+  </footer>
 
   <script>
     const products = {
-      "focus-planner": { name: "Focus Planner PDF", price: 9 }
+      "focus-planner":       { name: "Focus Planner PDF",        price: 9,  emoji: "📋", desc: "Daily & weekly planner to boost focus and productivity." },
+      "notion-template":     { name: "Notion Workspace Template", price: 19, emoji: "🗂️", desc: "Ready-to-use productivity setup in Notion." },
+      "marketing-checklist": { name: "Marketing Checklist PDF",   price: 12, emoji: "✅", desc: "Step-by-step checklist for marketing campaigns." },
+      "pro-bundle":          { name: "Pro Bundle",                price: 29, emoji: "📦", desc: "All 3 templates together at a discounted price." }
     };
 
+    // Read product id from URL: product.html?id=focus-planner
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+    const product = products[id];
+    const container = document.getElementById('product-content');
+
+    if (product) {
+      // Update page title
+      document.title = product.name + ' | Digital Store Lab';
+
+      // Render product card
+      container.innerHTML = `
+        <div class="product-card">
+          <span class="product-emoji">${product.emoji}</span>
+          <h1 class="product-name">${product.name}</h1>
+          <p class="product-desc">${product.desc}</p>
+          <hr class="product-divider">
+          <div class="product-footer">
+            <span class="product-price">$${product.price}</span>
+            <button class="btn-cart" onclick="addToCart('${id}')">Add to Cart</button>
+          </div>
+        </div>
+        <a href="cart.html" class="cart-link">View Cart →</a>
+      `;
+
+      // Push view_item event
+      window.dataLayer = window.dataLayer || [];
+      dataLayer.push({
+        event: 'view_item',
+        ecommerce: {
+          currency: 'USD',
+          value: product.price,
+          items: [{
+            item_id: id,
+            item_name: product.name,
+            price: product.price,
+            quantity: 1
+          }]
+        }
+      });
+
+    } else {
+      container.innerHTML = `
+        <div class="not-found">
+          <p style="font-size:2rem;margin-bottom:16px;">🔍</p>
+          <p style="margin-bottom:24px;">Product not found.</p>
+          <a href="shop.html" style="font-size:0.875rem;color:#111;border-bottom:1px solid #111;padding-bottom:2px;text-decoration:none;">← Back to Shop</a>
+        </div>
+      `;
+    }
+
+    // Add to cart function
     function addToCart(id) {
       let cart = JSON.parse(localStorage.getItem('cart')) || [];
       cart.push(id);
       localStorage.setItem('cart', JSON.stringify(cart));
       alert(products[id].name + ' added to cart!');
-      
-      // GTM ecommerce event
       window.dataLayer = window.dataLayer || [];
       dataLayer.push({
         event: 'add_to_cart',
@@ -62,13 +298,5 @@
     }
   </script>
 
-  <p><a href="cart.html">Go to Cart</a></p>
-
-  <hr>
-  <footer style="margin-top: 30px; font-size: 0.9em; color: #555;">
-    Demo project — non-commercial | <a href="index.html">Home</a>
-  </footer>
-
 </body>
-
 </html>
