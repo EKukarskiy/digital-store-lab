@@ -18,7 +18,6 @@
 | `/cart.html` | Shopping cart |
 | `/checkout.html` | Checkout |
 | `/thankyou.html` | Purchase confirmation |
-| `/blog/` | Blog (scroll & traffic events) |
 
 ---
 
