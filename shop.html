@@ -146,6 +146,17 @@
     .btn-cart:hover { background: #333; }
     .btn-cart:active { transform: scale(0.97); }
 
+    .btn-details {
+      font-size: 0.8rem;
+      color: #888;
+      text-decoration: none;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 2px;
+      transition: color 0.15s, border-color 0.15s;
+    }
+
+    .btn-details:hover { color: #111; border-color: #111; }
+
     /* CART LINK */
     .cart-bar {
       text-align: center;
@@ -227,7 +238,10 @@
       <div class="product-desc">Daily & weekly planner to boost focus and productivity.</div>
       <div class="product-footer">
         <span class="product-price">$9</span>
-        <button class="btn-cart" onclick="addToCart('focus-planner')">Add to Cart</button>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;">
+          <button class="btn-cart" onclick="addToCart('focus-planner')">Add to Cart</button>
+          <a href="product.html?id=focus-planner" class="btn-details">View Details</a>
+        </div>
       </div>
     </div>
 
@@ -237,7 +251,10 @@
       <div class="product-desc">Ready-to-use productivity setup in Notion.</div>
       <div class="product-footer">
         <span class="product-price">$19</span>
-        <button class="btn-cart" onclick="addToCart('notion-template')">Add to Cart</button>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;">
+          <button class="btn-cart" onclick="addToCart('notion-template')">Add to Cart</button>
+          <a href="product.html?id=notion-template" class="btn-details">View Details</a>
+        </div>
       </div>
     </div>
 
@@ -247,7 +264,10 @@
       <div class="product-desc">Step-by-step checklist for marketing campaigns.</div>
       <div class="product-footer">
         <span class="product-price">$12</span>
-        <button class="btn-cart" onclick="addToCart('marketing-checklist')">Add to Cart</button>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;">
+          <button class="btn-cart" onclick="addToCart('marketing-checklist')">Add to Cart</button>
+          <a href="product.html?id=marketing-checklist" class="btn-details">View Details</a>
+        </div>
       </div>
     </div>
 
@@ -257,7 +277,10 @@
       <div class="product-desc">All 3 templates together at a discounted price.</div>
       <div class="product-footer">
         <span class="product-price">$29</span>
-        <button class="btn-cart" onclick="addToCart('pro-bundle')">Add to Cart</button>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;">
+          <button class="btn-cart" onclick="addToCart('pro-bundle')">Add to Cart</button>
+          <a href="product.html?id=pro-bundle" class="btn-details">View Details</a>
+        </div>
       </div>
     </div>
 
