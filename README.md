@@ -65,9 +65,15 @@ Browser → digital-store-lab.space (Cloudflare Worker)
 | Data endpoint | `ss.digital-store-lab.space` | 1st-party collection domain |
 | Script delivery | `load.ss.digital-store-lab.space` | 1st-party GTM script loading |
 
+![Network — 1st party GTM load](assets/screenshots/network-1st-party-gtm-load.png)
+
 ### Notable implementation detail
 
 The project runs on a **static HTML site** (no CMS). Unlike WordPress or Shopify where GTM code lives in one template, each of the seven pages required manual GTM snippet updates to point to the 1st-party endpoints — a practical reminder of how infrastructure decisions affect implementation work at every level.
+
+![sGTM tags fired — GA4 and Facebook CAPI](assets/screenshots/sgtm-tags-fired-ga4-facebook.png)
+
+![sGTM Facebook CAPI payload](assets/screenshots/sgtm-facebook-capi-payload.png)
 
 ---
 
@@ -88,6 +94,8 @@ GTM does not parse the DOM — ecommerce data is passed strictly through the `ec
 | `scroll_events` | ✅ |
 | `video_events` | ✅ |
 | `form_submits` | ✅ |
+
+![sGTM GA4 event DataLayer payload](assets/screenshots/sgtm-ga4-event-datalayer.png)
 
 ---
 
