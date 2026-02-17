@@ -4,6 +4,7 @@
 > **GTM → DataLayer → GA4 → Consent Mode → Server-side tracking**
 
 🌐 Live site: [digital-store-lab.space](https://digital-store-lab.space)
+
 📁 Repository: [github.com/EKukarskiy/digital-store-lab](https://github.com/EKukarskiy/digital-store-lab)
 
 ---
